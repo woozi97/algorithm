@@ -25,7 +25,7 @@ public class Main {
 		   1  2  3  4  5  6  7  8  9  10
 		1  1  1  1  1  1  1  1  1  1  1 (1원짜리로 위 수를 나타낼 수 있는 방법)
 		2  0  1  1  2  2  3  3  4  4  5(8원의 경우의 수)
-				 1(2원1개 1원 1개)
+				 1(2원1개 1원 1개, 3-2원=1원, 1원에서 구했던 경우에수에서 2원의 경우의수만 더하면됨 )
 				   (2원짜리 1개, 2원 1개 1원 2개)
 				   		5원에서 2원을뺀 3의 경우에 수가 들어옴
 		5  0  0  0  0  1  1  2  2  3  4
@@ -35,14 +35,14 @@ public class Main {
 		
 		//백준에서 메모리 제한이 4mb라 이차배열이 아니라 일차배열로 접근
 		int coin[]=new int[101];//코인의 가치 저장
-		int dp[]=new int[10001];//total 수를 저장(결과값)
+		int dp[]=new int[10001];//현재까지 갱신된 total 수를 저장(결과값)
 		
 		Scanner scan = new Scanner(System.in);
 		int numCoin = scan.nextInt();
 		int money = scan.nextInt();
 		
 		for(int i = 1;i<=numCoin;i++) {
-			coin[i]=scan.nextInt();
+			coin[i]=scan.nextInt();//동전의 종류별로 가치를 저장
 		}
 		dp[0]=1;//dp 풀때 답을 아는 부분은 미리 기재 (나자신으로 빼는 경우는 항상 1이기 떄문, 1-1, 2-2, 5-5인 경우)
 		for(int i=1;i<=numCoin;i++) {//코인의 종류만큼 도는것
@@ -50,6 +50,24 @@ public class Main {
 				dp[j]+=dp[j-coin[i]];
 			}
 		}
+		
+		//i는 1~3까지,numCoin=3, money는 10까지표현
+		
+		//coin[i]에 각 화폐가치가 들어있음 coin[1], coin[2], coin[3]
+		//j=1부터 시작해서 10까지로 표현하고자 하는 금액이 됨 money는 10
+		//dp[1]+=dp[1-1];, 
+		//dp[2]+=dp[2-1];
+		//dp[3]+=dp[3-1];
+		//dp[4]+=dp[4-1];
+		//dp[5]+=dp[5-1];
+		//dp[6]+=dp[6-1];
+		//dp[7]+=dp[7-1];
+		//dp[8]+=dp[8-1];
+		//dp[9]+=dp[9-1];
+		//dp[10]+=dp[10-1]; //앞에 있는 배열 값을 활용하여 갱신한다.
+		
+		//dp[2]+=dp[2-2];.....
+		
 		System.out.println(dp[money]);
 	}
 }
