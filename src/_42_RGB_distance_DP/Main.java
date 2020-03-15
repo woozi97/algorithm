@@ -28,7 +28,7 @@ public class Main {
 	static int R = 1;
 	static int G = 2;
 	static int B = 3;
-	// 10Àº 3
+	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
 		int input = scan.nextInt();
